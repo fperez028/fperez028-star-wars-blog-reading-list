@@ -40,6 +40,10 @@ export const Home = () => {
 									`Eyes: ...`
 								]}
 								onClick={() => navigate(`/character/${char.uid}`)}
+								isFavorite={store.favorites.some(f => f.uid === char.uid && f.type === "character")}
+								onToggleFavorite={() =>
+							    	dispatch({ type: "TOGGLE_FAVORITE", payload: { uid: char.uid, name: char.name, type: "character" } })
+							  	}							
 							/>
 						))}
 					</HorizontalScroll>
@@ -54,6 +58,10 @@ export const Home = () => {
 									`Terrain: ...`
 								]}
 								onClick={() => navigate(`/planet/${planet.uid}`)}
+								isFavorite={store.favorites.some(f => f.uid === char.uid && f.type === "character")}
+								onToggleFavorite={() =>
+							    	dispatch({ type: "TOGGLE_FAVORITE", payload: { uid: char.uid, name: char.name, type: "character" } })
+							  	}								
 							/>
 						))}
 					</HorizontalScroll>
@@ -68,6 +76,10 @@ export const Home = () => {
 									`Maker: ...`
 								]}
 								onClick={() => navigate(`/starship/${ship.uid}`)}
+								isFavorite={store.favorites.some(f => f.uid === char.uid && f.type === "character")}
+								onToggleFavorite={() =>
+							    	dispatch({ type: "TOGGLE_FAVORITE", payload: { uid: char.uid, name: char.name, type: "character" } })
+							  	}
 							/>
 						))}
 					</HorizontalScroll>

@@ -4,6 +4,7 @@ export const initialStore = () => {
     people: [],
     planets: [],
     starships: [],
+    favorites: [],
     isLoading: false,
     error: null
   };
@@ -22,6 +23,19 @@ export default function storeReducer(store, action = {}) {
         planets: action.payload.planets,
         starships: action.payload.starships,
         isLoading: false
+      };
+
+    case "TOGGLE_FAVORITE":
+      const exists = store.favorites.find(
+        (f) => f.uid === action.payload.uid && f.type === action.payload.type
+      );
+      return {
+        ...store,
+        favorites: exists
+          ? store.favorites.filter(
+              (f) => f.uid !== action.payload.uid || f.type !== action.payload.type
+            )
+          : [...store.favorites, action.payload]
       };
 
     case "SET_ERROR":

@@ -21,10 +21,10 @@ export const Home = () => {
 
 	return (
 		<div className="container-fluid px-4">
-			<h1 className="text-white mt-4 mb-5 text-center">Star Wars Blog</h1>
+			<h1 className="mt-4 mb-5 text-center">Star Wars Blog</h1>
 
 			{store.isLoading ? (
-				<p className="text-white text-center">Loading data...</p>
+				<p className="text-center">Loading data...</p>
 			) : store.error ? (
 				<p className="text-danger text-center">{store.error}</p>
 			) : (

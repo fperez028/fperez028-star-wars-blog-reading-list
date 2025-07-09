@@ -6,7 +6,7 @@ export const StarshipDetail = () => {
     const [starship, setStarship] = useState(null);
 
     useEffect(() => {
-        fetch(`https://www.swapi.tech/api/vehicles/${id}`)
+        fetch(`https://www.swapi.tech/api/starships/${id}`)
             .then(res => res.json())
             .then(data => setStarship(data.result.properties))
             .catch(err => console.error(err));

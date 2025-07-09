@@ -1,42 +1,43 @@
 import PropTypes from "prop-types";
 
-export const Card = ({ title, subtitleLines, onClick, isFavorite, onToggleFavorite }) => {
-    return (
-        <div
-            className="card mx-2"
-            style={{ width: "18rem", flex: "0 0 auto", cursor: "pointer" }}
-            onClick={onClick}
-        >
-            <div className="card-body">
-                <div className="d-flex justify-content-between align-items-center">
-                    <h5 className="card-title mb-0">{title}</h5>
-                    {onToggleFavorite && (
-                        <button
-                            className="btn btn-sm btn-outline-warning"
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                onToggleFavorite();
-                            }}
-                        >
-                            {isFavorite ? "★" : "☆"}
-                        </button>
-                    )}
-                </div>
-
-                {subtitleLines.map((line, index) => (
-                    <p className="card-text mb-1 text-muted" key={index}>
-                        {line}
-                    </p>
-                ))}
-            </div>
+export const Card = ({
+  title,
+  imageUrl,
+  onLearnMore,
+  isFavorite,
+  onToggleFavorite
+}) => {
+  return (
+    <div className="card mx-2" style={{ width: "18rem", flex: "0 0 auto" }}>
+      <img
+        src={imageUrl || "https://placehold.co/400x200"}
+        className="card-img-top"
+        alt={title}
+        style={{ objectFit: "cover", height: "200px" }}
+      />
+      <div className="card-body">
+        <h5 className="card-title">{title}</h5>
+        <div className="d-flex justify-content-between align-items-center mt-3">
+          <button className="btn btn-primary" onClick={onLearnMore}>
+            Learn more!
+          </button>
+          <button
+            className={`btn ${isFavorite ? "btn-warning" : "btn-outline-warning"}`}
+            onClick={onToggleFavorite}
+            aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
+          >
+            <i className="fa fa-star"></i>
+          </button>
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 Card.propTypes = {
-    title: PropTypes.string.isRequired,
-    subtitleLines: PropTypes.arrayOf(PropTypes.string).isRequired,
-    onClick: PropTypes.func.isRequired,
-    isFavorite: PropTypes.bool,
-    onToggleFavorite: PropTypes.func
+  title: PropTypes.string.isRequired,
+  imageUrl: PropTypes.string,
+  isFavorite: PropTypes.bool,
+  onLearnMore: PropTypes.func.isRequired,
+  onToggleFavorite: PropTypes.func.isRequired
 };

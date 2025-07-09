@@ -46,21 +46,28 @@ export default function storeReducer(store, action = {}) {
   }
 }
 
-// Async fetch logic
 export async function initializeData(dispatch) {
   dispatch({ type: "START_LOADING" });
 
   try {
-    const fetchEntity = async (type) => {
+    const fetchSummaryList = async (type) => {
       const res = await fetch(`https://www.swapi.tech/api/${type}`);
       const data = await res.json();
-      return data.results;
+      if (!data?.results || !Array.isArray(data.results)) {
+        console.error(`No results found for type: ${type}`);
+        return [];
+      }
+      // Return only uid and name (summary)
+      return data.results.map(item => ({
+        uid: item.uid,
+        name: item.name
+      }));
     };
 
     const [people, planets, starships] = await Promise.all([
-      fetchEntity("people"),
-      fetchEntity("planets"),
-      fetchEntity("starships")
+      fetchSummaryList("people"),
+      fetchSummaryList("planets"),
+      fetchSummaryList("starships")
     ]);
 
     dispatch({
@@ -68,7 +75,7 @@ export async function initializeData(dispatch) {
       payload: { people, planets, starships }
     });
   } catch (err) {
-    console.error(err);
+    console.error("❌ Failed to fetch Star Wars data:", err);
     dispatch({ type: "SET_ERROR", payload: "Failed to fetch Star Wars data." });
   }
 }

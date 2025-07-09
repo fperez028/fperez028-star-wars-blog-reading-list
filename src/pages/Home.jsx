@@ -30,58 +30,57 @@ export const Home = () => {
 			) : (
 				<>
 					<HorizontalScroll title="Characters">
-						{store.people.map((char) => (
-							<Card
-								key={char.uid}
-								title={char.name}
-								subtitleLines={[
-									`Gender: ...`,
-									`Hair: ...`,
-									`Eyes: ...`
-								]}
-								onClick={() => navigate(`/character/${char.uid}`)}
-								isFavorite={store.favorites.some(f => f.uid === char.uid && f.type === "character")}
-								onToggleFavorite={() =>
-							    	dispatch({ type: "TOGGLE_FAVORITE", payload: { uid: char.uid, name: char.name, type: "character" } })
-							  	}							
-							/>
-						))}
+					  {store.people.map((char) => (
+					    <Card
+					      key={char.uid}
+					      title={char.name}
+					      subtitleLines={[]}
+					      onLearnMore={() => navigate(`/character/${char.uid}`)}
+					      isFavorite={store.favorites.some(f => f.uid === char.uid && f.type === "character")}
+					      onToggleFavorite={() =>
+					        dispatch({
+					          type: "TOGGLE_FAVORITE",
+					          payload: { uid: char.uid, name: char.name, type: "character" }
+					        })
+					      }
+					    />
+					  ))}
 					</HorizontalScroll>
-
+				  
 					<HorizontalScroll title="Planets">
-						{store.planets.map((planet) => (
-							<Card
-								key={planet.uid}
-								title={planet.name}
-								subtitleLines={[
-									`Population: ...`,
-									`Terrain: ...`
-								]}
-								onClick={() => navigate(`/planet/${planet.uid}`)}
-								isFavorite={store.favorites.some(f => f.uid === char.uid && f.type === "character")}
-								onToggleFavorite={() =>
-							    	dispatch({ type: "TOGGLE_FAVORITE", payload: { uid: char.uid, name: char.name, type: "character" } })
-							  	}								
-							/>
-						))}
+					  {store.planets.map((planet) => (
+					    <Card
+					      key={planet.uid}
+					      title={planet.name}
+					      subtitleLines={[]}
+					      onLearnMore={() => navigate(`/planet/${planet.uid}`)}
+					      isFavorite={store.favorites.some(f => f.uid === planet.uid && f.type === "planet")}
+					      onToggleFavorite={() =>
+					        dispatch({
+					          type: "TOGGLE_FAVORITE",
+					          payload: { uid: planet.uid, name: planet.name, type: "planet" }
+					        })
+					      }
+					    />
+					  ))}
 					</HorizontalScroll>
-
+				  
 					<HorizontalScroll title="Starships">
-						{store.starships.map((ship) => (
-							<Card
-								key={ship.uid}
-								title={ship.name}
-								subtitleLines={[
-									`Model: ...`,
-									`Maker: ...`
-								]}
-								onClick={() => navigate(`/starship/${ship.uid}`)}
-								isFavorite={store.favorites.some(f => f.uid === char.uid && f.type === "character")}
-								onToggleFavorite={() =>
-							    	dispatch({ type: "TOGGLE_FAVORITE", payload: { uid: char.uid, name: char.name, type: "character" } })
-							  	}
-							/>
-						))}
+					  {store.starships.map((ship) => (
+					    <Card
+					      key={ship.uid}
+					      title={ship.name}
+					      subtitleLines={[]}
+					      onLearnMore={() => navigate(`/starship/${ship.uid}`)}
+					      isFavorite={store.favorites.some(f => f.uid === ship.uid && f.type === "starship")}
+					      onToggleFavorite={() =>
+					        dispatch({
+					          type: "TOGGLE_FAVORITE",
+					          payload: { uid: ship.uid, name: ship.name, type: "starship" }
+					        })
+					      }
+					    />
+					  ))}
 					</HorizontalScroll>
 				</>
 			)}

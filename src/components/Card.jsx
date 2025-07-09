@@ -10,7 +10,7 @@ export const Card = ({
   return (
     <div className="card mx-2" style={{ width: "18rem", flex: "0 0 auto" }}>
       <img
-        src={imageUrl || "https://placehold.co/400x200"}
+        src={imageUrl || "https://c4.wallpaperflare.com/wallpaper/317/787/611/movies-star-wars-collage-wallpaper-preview.jpg"}
         className="card-img-top"
         alt={title}
         style={{ objectFit: "cover", height: "200px" }}

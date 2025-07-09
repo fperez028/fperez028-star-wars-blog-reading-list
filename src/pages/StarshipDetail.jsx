@@ -14,8 +14,16 @@ export const StarshipDetail = () => {
 
     if (!starship) return <p className="text-center">Loading starship...</p>;
 
+    const imageUrl = `https://i.pinimg.com/originals/5b/ec/40/5bec40e3ff803d6ebcb3ab7c46bd9fc7.png`;
+
     return (
-        <div className="container mt-5">
+        <div className="container text-center mt-5">
+            <img
+				src={imageUrl}
+				alt={starship.name}
+				className="img-fluid mb-4"
+				style={{ height: "350px", objectFit: "cover" }}
+			/>
             <h2>{starship.name}</h2>
             <ul className="list-group list-group-flush mt-3">
                 <li className="list-group-item">Model: {starship.model}</li>

@@ -1,16 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import useGlobalReducer from "../hooks/useGlobalReducer";
 
 export const PlanetDetail = () => {
     const { id } = useParams();
+    const { store } = useGlobalReducer();
     const [planet, setPlanet] = useState(null);
 
     useEffect(() => {
-        fetch(`https://www.swapi.tech/api/planets/${id}`)
-            .then(res => res.json())
-            .then(data => setPlanet(data.result.properties))
-            .catch(err => console.error(err));
-    }, [id]);
+        // Try to find in global store first
+        const fromStore = store.planets.find(p => p.uid === id);
+        if (fromStore) {
+            setPlanet(fromStore.properties);
+        } else {
+            // Fallback to API fetch if not in store
+            fetch(`https://www.swapi.tech/api/planets/${id}`)
+                .then(res => res.json())
+                .then(data => setPlanet(data.result.properties))
+                .catch(err => console.error(err));
+        }
+    }, [id, store.people]);
 
     if (!planet) return <p className="text-center">Loading planet...</p>;
 

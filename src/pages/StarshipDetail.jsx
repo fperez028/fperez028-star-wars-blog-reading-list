@@ -1,16 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import useGlobalReducer from "../hooks/useGlobalReducer";
 
 export const StarshipDetail = () => {
     const { id } = useParams();
+    const { store } = useGlobalReducer();
     const [starship, setStarship] = useState(null);
 
     useEffect(() => {
-        fetch(`https://www.swapi.tech/api/starships/${id}`)
-            .then(res => res.json())
-            .then(data => setStarship(data.result.properties))
-            .catch(err => console.error(err));
-    }, [id]);
+        // Try to find in global store first
+        const fromStore = store.starships.find(p => p.uid === id);
+        if (fromStore) {
+            setStarship(fromStore.properties);
+        } else {
+            // Fallback to API fetch if not in store
+            fetch(`https://www.swapi.tech/api/starships/${id}`)
+                .then(res => res.json())
+                .then(data => setStarship(data.result.properties))
+                .catch(err => console.error(err));
+        }
+    }, [id, store.people]);
 
     if (!starship) return <p className="text-center">Loading starship...</p>;
 

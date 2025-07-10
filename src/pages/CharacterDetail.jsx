@@ -1,16 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import useGlobalReducer from "../hooks/useGlobalReducer";
 
 export const CharacterDetail = () => {
     const { id } = useParams();
+    const { store } = useGlobalReducer();
     const [character, setCharacter] = useState(null);
 
     useEffect(() => {
-        fetch(`https://www.swapi.tech/api/people/${id}`)
-            .then(res => res.json())
-            .then(data => setCharacter(data.result.properties))
-            .catch(err => console.error(err));
-    }, [id]);
+        // Try to find in global store first
+        const fromStore = store.people.find(p => p.uid === id);
+        if (fromStore) {
+            setCharacter(fromStore.properties);
+        } else {
+            // Fallback to API fetch if not in store
+            fetch(`https://www.swapi.tech/api/people/${id}`)
+                .then(res => res.json())
+                .then(data => setCharacter(data.result.properties))
+                .catch(err => console.error(err));
+        }
+    }, [id, store.people]);
 
     if (!character) return <p className="text-center">Loading character...</p>;
 
@@ -19,15 +28,16 @@ export const CharacterDetail = () => {
     return (
         <div className="container text-center mt-5">
             <img
-				src={imageUrl}
-				alt={character.name}
-				className="img-fluid mb-4"
-				style={{ 
-                    maxWidth: "100%", 
+                src={imageUrl}
+                alt={character.name}
+                className="img-fluid mb-4"
+                style={{
+                    maxWidth: "100%",
                     height: "auto",
-                    maxHeight: "350px", 
-                    objectFit: "contain" }}
-			/>            
+                    maxHeight: "350px",
+                    objectFit: "contain"
+                }}
+            />
             <h1>{character.name}</h1>
             <ul className="list-group list-group-flush mt-3">
                 <li className="list-group-item">Birth Year: {character.birth_year}</li>

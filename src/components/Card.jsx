@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 export const Card = ({
   title,
   imageUrl,
+  subtitleLines,
   onLearnMore,
   isFavorite,
   onToggleFavorite
@@ -15,8 +16,13 @@ export const Card = ({
         alt={title}
         style={{ objectFit: "cover", height: "200px" }}
       />
-      <div className="card-body">
+      <div className="card-body d-flex flex-column justify-content-between" style={{ minHeight: "200px" }} >
         <h5 className="card-title">{title}</h5>
+        <div>
+          {subtitleLines?.map((line, index) => (
+            <p key={index} className="card-text mb-1">{line}</p>
+          ))}
+        </div>
         <div className="d-flex justify-content-between align-items-center mt-3">
           <button className="btn btn-primary" onClick={onLearnMore}>
             Learn more!
@@ -37,6 +43,7 @@ export const Card = ({
 Card.propTypes = {
   title: PropTypes.string.isRequired,
   imageUrl: PropTypes.string,
+  subtitleLines: PropTypes.arrayOf(PropTypes.string),
   isFavorite: PropTypes.bool,
   onLearnMore: PropTypes.func.isRequired,
   onToggleFavorite: PropTypes.func.isRequired

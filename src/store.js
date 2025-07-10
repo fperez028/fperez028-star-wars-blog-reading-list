@@ -51,16 +51,16 @@ export async function initializeData(dispatch) {
 
   try {
     const fetchSummaryList = async (type) => {
-      const res = await fetch(`https://www.swapi.tech/api/${type}`);
+      const res = await fetch(`https://www.swapi.tech/api/${type}/?expanded=true`);
       const data = await res.json();
       if (!data?.results || !Array.isArray(data.results)) {
         console.error(`No results found for type: ${type}`);
         return [];
       }
-      // Return only uid and name (summary)
       return data.results.map(item => ({
         uid: item.uid,
-        name: item.name
+        name: item.name,
+        properties: item.properties
       }));
     };
 

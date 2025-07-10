@@ -41,16 +41,12 @@ export const Navbar = () => {
 										className="dropdown-item border-0 bg-transparent p-0 text-start flex-grow-1"
 										onClick={() => navigate(`/${fav.type}/${fav.uid}`)}
 									>
-										{fav.name} ({fav.type})
+										{fav.name}
 									</button>
 									<i
 										className="fa-regular fa-trash-can ms-2"
 										role="button"
-										onClick={(e) => {
-											e.stopPropagation();
-											e.preventDefault();
-											removeFavorite(fav);
-										}}
+										onClick={() => removeFavorite(fav)}
 									></i>
 								</li>
 							))

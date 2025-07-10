@@ -33,14 +33,18 @@ export const Home = () => {
 					  {store.people.map((char) => (
 					    <Card
 					      key={char.uid}
-					      title={char.name}
-					      subtitleLines={[]}
+					      title={char.properties.name}
+					      subtitleLines={[
+							`Gender: ${char.properties.gender}`,
+							`Hair: ${char.properties.hair_color}`,
+							`Eyes: ${char.properties.eye_color}`
+						  ]}
 					      onLearnMore={() => navigate(`/character/${char.uid}`)}
 					      isFavorite={store.favorites.some(f => f.uid === char.uid && f.type === "character")}
 					      onToggleFavorite={() =>
 					        dispatch({
 					          type: "TOGGLE_FAVORITE",
-					          payload: { uid: char.uid, name: char.name, type: "character" }
+					          payload: { uid: char.uid, name: char.properties.name, type: "character" }
 					        })
 					      }
 					    />
@@ -51,14 +55,17 @@ export const Home = () => {
 					  {store.planets.map((planet) => (
 					    <Card
 					      key={planet.uid}
-					      title={planet.name}
-					      subtitleLines={[]}
+					      title={planet.properties.name}
+					      subtitleLines={[
+							`Pop: ${planet.properties.population}`,
+							`Terrain: ${planet.properties.terrain}`
+						  ]}
 					      onLearnMore={() => navigate(`/planet/${planet.uid}`)}
 					      isFavorite={store.favorites.some(f => f.uid === planet.uid && f.type === "planet")}
 					      onToggleFavorite={() =>
 					        dispatch({
 					          type: "TOGGLE_FAVORITE",
-					          payload: { uid: planet.uid, name: planet.name, type: "planet" }
+					          payload: { uid: planet.uid, name: planet.properties.name, type: "planet" }
 					        })
 					      }
 					    />
@@ -69,14 +76,17 @@ export const Home = () => {
 					  {store.starships.map((ship) => (
 					    <Card
 					      key={ship.uid}
-					      title={ship.name}
-					      subtitleLines={[]}
+					      title={ship.properties.name}
+					      subtitleLines={[
+							`Model: ${ship.properties.model}`,
+							`Mfr: ${ship.properties.manufacturer}`
+						  ]}
 					      onLearnMore={() => navigate(`/starship/${ship.uid}`)}
 					      isFavorite={store.favorites.some(f => f.uid === ship.uid && f.type === "starship")}
 					      onToggleFavorite={() =>
 					        dispatch({
 					          type: "TOGGLE_FAVORITE",
-					          payload: { uid: ship.uid, name: ship.name, type: "starship" }
+					          payload: { uid: ship.uid, name: ship.properties.name, type: "starship" }
 					        })
 					      }
 					    />

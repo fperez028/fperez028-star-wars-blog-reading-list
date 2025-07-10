@@ -22,9 +22,13 @@ export const CharacterDetail = () => {
 				src={imageUrl}
 				alt={character.name}
 				className="img-fluid mb-4"
-				style={{ height: "350px", objectFit: "cover" }}
+				style={{ 
+                    maxWidth: "100%", 
+                    height: "auto",
+                    maxHeight: "350px", 
+                    objectFit: "contain" }}
 			/>            
-            <h2>{character.name}</h2>
+            <h1>{character.name}</h1>
             <ul className="list-group list-group-flush mt-3">
                 <li className="list-group-item">Birth Year: {character.birth_year}</li>
                 <li className="list-group-item">Gender: {character.gender}</li>
